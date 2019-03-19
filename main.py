@@ -40,7 +40,7 @@ def login():
             flash("Email does not exist please register")
             return redirect(url_for('register'))
         
-        if email == user_email and password =!user_password:
+        if email == user_email and password != user_password:
             flash("Wrong Password!") 
             return redirect(url_for('login'))
         
