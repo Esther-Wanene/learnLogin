@@ -35,10 +35,10 @@ class UserAuthentication(db.Model):
             return True
         else:
             return False
-    #fetch a record
+    #fetch password
     @classmethod
     def fetch_user(cls, email, password):
-        user =UserAuthentication.query.filter_by(email=email, password=password).first_or_404()
+        user =UserAuthentication.db.engine.execute('SELECT password FROM Test WHERE email =: email'{"email":email}.fetchone()
         if user:
             return True
         else:
