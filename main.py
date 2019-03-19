@@ -30,20 +30,26 @@ def login():
     if request.method == "POST":
         email = request.form.get('email')
         password = request.form.get('password')
-
+        
+        # retrieve stored user email and password from db
         user_email = UserAuthentication.check_email(['email'])
-        user = UserAuthentication.fetch_user(['email'], ['password'])
-
-        if email == user_email:
-            return redirect(url_for('welcome'))
-        else:
+        user_password = UserAuthentication.fetch_user(['password'])
+        
+        # check if email and password equal to the stored credentials
+        if email != user_email:
+            flash("Email does not exist please register")
             return redirect(url_for('register'))
+        
+        if email == user_email and password =!user_password:
+            flash("Wrong Password!") 
+            return redirect(url_for('login'))
+        
+        if email == user_email and password == user_password:
+            flash("Successfully Logged In")
+            return redirect(url_for('welcome'))
+            
     return render_template('login.html')
 
-
-
-
-    return render_template('login.html')
 
 
 # render the register function which will create a user
